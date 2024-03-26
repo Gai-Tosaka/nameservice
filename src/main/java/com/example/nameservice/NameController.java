@@ -15,13 +15,13 @@ public class NameController {
         this.nameMapper = nameMapper;
     }
 
-    @GetMapping("/names-all")
-    public List<Name> findAll() {
-        return nameMapper.findAll();
-    }
-
     @GetMapping("/names")
-    public List<Name> findByNames(@RequestParam String startsWith) {
-        return nameMapper.findByNameStartingWith(startsWith);
+
+    public List<Name> findNames(@RequestParam(required = false) String startsWith) {
+        if (startsWith != null) {
+            return nameMapper.findByNameStartingWith(startsWith);
+        } else {
+            return nameMapper.findAll();
+        }
     }
 }
