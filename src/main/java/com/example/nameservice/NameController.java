@@ -1,6 +1,7 @@
 package com.example.nameservice;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -14,10 +15,13 @@ public class NameController {
         this.nameMapper = nameMapper;
     }
 
-    @GetMapping("/names")
-    public List<Name> getName() {
+    @GetMapping("/names-all")
+    public List<Name> findAll() {
+        return nameMapper.findAll();
+    }
 
-        List<Name> names = nameMapper.findAll();
-        return names;
+    @GetMapping("/names")
+    public List<Name> findByNames(@RequestParam String startsWith) {
+        return nameMapper.findByNameStartingWith(startsWith);
     }
 }
