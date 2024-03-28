@@ -24,10 +24,6 @@ public class NameService {
 
     public Name findById(int id) {
         Optional<Name> name = this.nameMapper.findById(id);
-        if (name.isPresent()) {
-            return name.get();
-        } else {
-            throw new NameNotFoundException("Name not found");
-        }
+        return name.orElseThrow(() -> new NameNotFoundException("name not found"));
     }
 }
